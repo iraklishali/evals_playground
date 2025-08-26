@@ -32,3 +32,20 @@ def addition_problem():
         solver=[use_tools(add()), generate()],
         scorer=match(numeric=True),
     )
+
+@task
+def addition_problem_hard():
+    return Task(
+        dataset=[Sample(input="What is 123444565641 + 298435629337?", target=["421880194978", "421880194978.0"])],
+        solver=[use_tools(add()), generate()],
+        scorer=match(numeric=True),
+    )
+
+@task
+def addition_in_container():
+    return Task(
+        dataset=[Sample(input="What is 123444565641 + 298435629337?", target=["421880194978", "421880194978.0"])],
+        solver=[use_tools(add()), generate()],
+        sandbox="docker",
+        scorer=match(numeric=True),
+    )
