@@ -4,6 +4,7 @@ from inspect_ai.scorer import includes
 from inspect_ai.solver import generate, use_tools
 from inspect_ai.tool import ToolError, tool
 from inspect_ai.util import sandbox
+from inspect_ai.agent import Agent, agent, react, AgentPrompt
 
 @tool
 def list_files():
@@ -49,4 +50,32 @@ def file_probe():
         ],
         sandbox="docker",
         scorer=includes(),
+    )
+
+PROMPT = """
+You are an agent with access to a collection of tools.
+Use your best judgement to answer questions by using the available tools.
+"""
+
+@agent
+def custom_agent(attempts: int = 1) -> Agent:
+    return react(
+        description="Custom agent for simple tool usage.",
+        prompt=AgentPrompt(
+            instructions=PROMPT,
+            assistant_prompt="Answer should be single word Yes/No answering the question provided."
+        ),
+        tools=[list_files()],
+        attempts=attempts,
+    )
+
+@task
+def file_probe_agentic():
+    return Task(
+        dataset=dataset,
+        solver=custom_agent(),
+        sandbox="docker",
+        scorer=includes(),
+        token_limit=1024,
+        message_limit=10
     )

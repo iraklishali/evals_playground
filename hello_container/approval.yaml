@@ -1,0 +1,6 @@
+approvers:
+  - name: human
+    tools: ["list_files"]
+
+  - name: auto
+    tools: "*"
