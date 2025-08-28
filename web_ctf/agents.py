@@ -1,5 +1,5 @@
 from inspect_ai.solver import basic_agent, system_message, solver, Solver
-from inspect_ai.tool import web_browser, bash, python, web_search, computer
+from inspect_ai.tool import web_browser, bash, python, web_search, computer, bash_session
 from textwrap import dedent
 
 SYSTEM_MESSAGE = dedent(
@@ -39,6 +39,15 @@ def ctf_computer_agent(max_attempts: int = 1, max_messages: int = 30) -> Solver:
     return basic_agent(
         init=system_message(SYSTEM_MESSAGE),
         tools=[computer(60)],
+        max_attempts=max_attempts,
+        max_messages=max_messages,
+    )
+
+@solver
+def ctf_bash_session_agent(max_attempts: int = 1, max_messages: int = 30) -> Solver:
+    return basic_agent(
+        init=system_message(SYSTEM_MESSAGE),
+        tools=[bash_session(timeout=60), python(timeout=60)],
         max_attempts=max_attempts,
         max_messages=max_messages,
     )
