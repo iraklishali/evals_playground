@@ -1,0 +1,3 @@
+services:
+  default:
+    image: aisiuk/inspect-computer-tool
