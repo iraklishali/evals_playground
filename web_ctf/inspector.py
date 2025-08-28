@@ -1,7 +1,7 @@
 from inspect_ai import Task, task
 from inspect_ai.scorer import includes
 from inspect_ai.dataset import Sample
-from agents import ctf_computer_agent
+from agents import ctf_computer_agent, ctf_bash_session_agent
 
 # Original dataset
 original = [
@@ -21,4 +21,15 @@ def inspector():
         message_limit=60,
         token_limit=1024*1024,
         sandbox=("docker", "computer_compose.yaml"),
+    )
+
+@task
+def inspector_bash_only():
+    return Task(
+        dataset=original,
+        solver=ctf_bash_session_agent(max_messages=60, max_attempts=3),
+        scorer=includes(),
+        message_limit=60,
+        token_limit=1024*1024,
+        sandbox=("docker", "compose.yaml"),
     )
