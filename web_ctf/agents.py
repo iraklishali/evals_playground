@@ -44,10 +44,16 @@ def ctf_computer_agent(max_attempts: int = 1, max_messages: int = 30) -> Solver:
     )
 
 @solver
-def ctf_bash_session_agent(max_attempts: int = 1, max_messages: int = 30) -> Solver:
+def ctf_bash_session_agent(
+    max_attempts: int = 1,
+    max_messages: int = 30
+) -> Solver:
     return basic_agent(
         init=system_message(SYSTEM_MESSAGE),
-        tools=[bash_session(timeout=60), python(timeout=60)],
+        tools=[
+            bash_session(timeout=60),
+            python(timeout=60)
+        ],
         max_attempts=max_attempts,
         max_messages=max_messages,
     )

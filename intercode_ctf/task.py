@@ -39,7 +39,10 @@ def intercode_web_ctf(
     sample_ids: list[int] | None = None,
 ) -> Task:
     if solver is None:
-        solver = ctf_agent(max_attempts=max_attempts, max_messages=max_messages)
+        solver = ctf_agent(
+            max_attempts=max_attempts,
+            max_messages=max_messages
+        )
 
     return Task(
         dataset=read_dataset(
