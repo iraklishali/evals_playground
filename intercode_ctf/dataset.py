@@ -73,10 +73,10 @@ def read_dataset(
         39,
         41,
         42,
-        43,
+        43, # runs but fails
         54,
         57,
-        62,
+        62, # almost solved
         66,
         73,
         87,
@@ -85,7 +85,18 @@ def read_dataset(
         95,
     ]
     # exclude unsupported ones
-    exclude = []
+    exclude = [
+        14, # requires additional dependency
+
+        # connection refused:
+        28,
+        29,
+        66,
+        87,
+        88,
+        89,
+        95,
+    ]
     return json_dataset(
         json_file=f"{INTERCODE_DATA_DIR}/ic_ctf.json",
         sample_fields=record_to_sample,

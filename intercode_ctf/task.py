@@ -1,5 +1,5 @@
 from inspect_ai.solver import basic_agent, system_message, solver, Solver
-from inspect_ai.tool import bash, python
+from inspect_ai.tool import python, bash_session
 from textwrap import dedent
 from inspect_ai import Task, task
 from inspect_ai.scorer import includes
@@ -23,7 +23,8 @@ def ctf_agent(max_attempts: int, max_messages: int) -> Solver:
 
     return basic_agent(
         init=system_message(SYSTEM_MESSAGE),
-        tools=[bash(timeout=180), python(timeout=180)],
+        # tools=[bash(timeout=180), python(timeout=180)],
+        tools=[bash_session(timeout=180), python(timeout=180)],
         max_attempts=max_attempts,
         max_messages=max_messages,
     )
